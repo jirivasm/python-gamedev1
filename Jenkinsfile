@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         git 'https://github.com/jirivasm/python-gamedev1.git'
-        sh 'docker --version'
+        sh 'docker build -t jirivasm/game1:latest .'
       }
     }
 }
