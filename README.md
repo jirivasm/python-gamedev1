@@ -9,3 +9,4 @@ This will be a first test to create a python ganme and push it to docker via jen
 - added ip/8080/github-webhook 
 - in order to be able to access github from my jenkins on the server I had to add a tunnel to expose in a safe way my jenkins
 - now I can add the webhook and test to see if it runs.
+- making https to see if it works
