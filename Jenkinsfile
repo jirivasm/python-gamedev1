@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        git 'https://github.com/jirivasm/python-gamedev1.git'
+        git 'https://github.com/jirivasm/python-gamedev1'
         sh 'echo hello'
       }
     }
