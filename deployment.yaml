@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jirivasm-game
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        editor: vscode
+    spec:
+      containers:
+      - name: jirivasm/test
+        image: jirivasm/game1
+        ports:
+          - containerPort: 8181
