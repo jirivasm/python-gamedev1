@@ -4,6 +4,7 @@ pygame.init()
 screen = pygame.display.set_mode((800,600))
 clock = pygame.time.Clock()
 dt = 0
+X = pygame.image.load("../assets/x.png")
 
 
 def drawGrid():
@@ -48,8 +49,10 @@ async def main():
         screen.fill("blue")
         drawGrid()
         
+        #mouse variables
         mouse_pos = pygame.mouse.get_pos(); 
-        
+        mouse_state = pygame.mouse.get_pressed();
+
         #coloring according to mouse position
         if mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]<screen.get_height()/3:
             pygame.draw.rect(screen,(0,0,100),myGrid[0])
@@ -70,6 +73,25 @@ async def main():
         elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
             pygame.draw.rect(screen,(0,0,100),myGrid[8])
 
+        if mouse_state[0]:
+            if mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]<screen.get_height()/3:
+                pygame.draw.rect(screen,(0,0,100),myGrid[0])
+            elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]< screen.get_height()/3:
+                pygame.draw.rect(screen,(0,0,100),myGrid[1])
+            elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]<screen.get_height()/3:
+               pygame.draw.rect(screen,(0,0,100),myGrid[2])
+            elif mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]>screen.get_height()/3 and mouse_pos[1]<2*screen.get_height()/3:
+                pygame.draw.rect(screen,(0,0,100),myGrid[3])
+            elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]>screen.get_height()/3 and mouse_pos[1]<2*screen.get_height()/3:
+                pygame.draw.rect(screen,(0,0,100),myGrid[4])
+            elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]<2*screen.get_height()/3 and mouse_pos[1]>screen.get_height()/3:
+                pygame.draw.rect(screen,(0,0,100),myGrid[5])
+            elif mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
+                pygame.draw.rect(screen,(0,0,100),myGrid[6])
+            elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
+                pygame.draw.rect(screen,(0,0,100),myGrid[7])
+            elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
+                pygame.draw.rect(screen,(0,0,100),myGrid[8])
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
