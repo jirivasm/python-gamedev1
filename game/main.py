@@ -49,8 +49,8 @@ async def main():
         drawGrid()
         
         mouse_pos = pygame.mouse.get_pos(); 
-        middleX = screen.get_width()-screen.get_width()/3
-        middleY = screen.get_height()-screen.get_height()/3
+        
+        #coloring according to mouse position
         if mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]<screen.get_height()/3:
             pygame.draw.rect(screen,(0,0,100),myGrid[0])
         elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]< screen.get_height()/3:
