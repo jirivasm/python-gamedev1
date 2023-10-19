@@ -2,10 +2,14 @@ import asyncio
 import pygame
 pygame.init()
 screen = pygame.display.set_mode((800,600))
+pygame.display.set_caption("tic-tac-toe")
 clock = pygame.time.Clock()
 dt = 0
-X = pygame.image.load("../assets/x.png")
+isFirstTurn = True
 
+#Assets
+xAsset = pygame.image.load("assets/x.png")
+oAsset = pygame.image.load("assets/O.png")
 
 def drawGrid():
     for x in range(1,3):
@@ -47,6 +51,7 @@ async def main():
                 isRunning = False
         #filling screen
         screen.fill("blue")
+        screen.blit(xAsset,(0,0))
         drawGrid()
         
         #mouse variables
@@ -75,30 +80,31 @@ async def main():
 
         if mouse_state[0]:
             if mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]<screen.get_height()/3:
-                pygame.draw.rect(screen,(0,0,100),myGrid[0])
-            elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]< screen.get_height()/3:
-                pygame.draw.rect(screen,(0,0,100),myGrid[1])
-            elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]<screen.get_height()/3:
-               pygame.draw.rect(screen,(0,0,100),myGrid[2])
-            elif mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]>screen.get_height()/3 and mouse_pos[1]<2*screen.get_height()/3:
-                pygame.draw.rect(screen,(0,0,100),myGrid[3])
-            elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]>screen.get_height()/3 and mouse_pos[1]<2*screen.get_height()/3:
-                pygame.draw.rect(screen,(0,0,100),myGrid[4])
-            elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]<2*screen.get_height()/3 and mouse_pos[1]>screen.get_height()/3:
-                pygame.draw.rect(screen,(0,0,100),myGrid[5])
-            elif mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
-                pygame.draw.rect(screen,(0,0,100),myGrid[6])
-            elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
-                pygame.draw.rect(screen,(0,0,100),myGrid[7])
-            elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
-                pygame.draw.rect(screen,(0,0,100),myGrid[8])
+               pass#screen.blit(xAsset,(0,0))
+            # elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]< screen.get_height()/3:
+            #     pygame.draw.rect(screen,(0,0,100),myGrid[1])
+            # elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]<screen.get_height()/3:
+            #    pygame.draw.rect(screen,(0,0,100),myGrid[2])
+            # elif mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]>screen.get_height()/3 and mouse_pos[1]<2*screen.get_height()/3:
+            #     pygame.draw.rect(screen,(0,0,100),myGrid[3])
+            # elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]>screen.get_height()/3 and mouse_pos[1]<2*screen.get_height()/3:
+            #     pygame.draw.rect(screen,(0,0,100),myGrid[4])
+            # elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]<2*screen.get_height()/3 and mouse_pos[1]>screen.get_height()/3:
+            #     pygame.draw.rect(screen,(0,0,100),myGrid[5])
+            # elif mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
+            #     pygame.draw.rect(screen,(0,0,100),myGrid[6])
+            # elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
+            #     pygame.draw.rect(screen,(0,0,100),myGrid[7])
+            # elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
+            #     pygame.draw.rect(screen,(0,0,100),myGrid[8])
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             isRunning = False
         
         #show work on screen
-        pygame.display.flip()
+        pygame.display.update()
+
 
         #60 fps
         dt = clock.tick(60)/1000
