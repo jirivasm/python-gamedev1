@@ -1,15 +1,44 @@
 import asyncio
 import pygame
+pygame.init()
+screen = pygame.display.set_mode((800,600))
+clock = pygame.time.Clock()
+dt = 0
 
-COUNT_DOWN = 3
+
+def drawGrid():
+    for x in range(1,3):
+        pygame.draw.line(screen,(0,255,0),(0,x * screen.get_height()/3),(screen.get_width(), x * screen.get_height()/3),4)
+        pygame.draw.line(screen,(0,255,0),(0,x * screen.get_height()/3),(screen.get_width(), x * screen.get_height()/3),4)
+        pygame.draw.line(screen,(0,255,0),(x * screen.get_width()/3,0),(x * screen.get_width()/3, screen.get_height()),4)
+        pygame.draw.line(screen,(0,255,0),(x * screen.get_width()/3,0),(x * screen.get_width()/3, screen.get_height()),4)
+
+
+
+ 
+myGrid = []
+#Top Left
+myGrid.append(pygame.Rect(0,0,screen.get_width()/3,screen.get_height()/3))
+#Top Middle
+myGrid.append(pygame.Rect(screen.get_width()/3,0,screen.get_width()/3,screen.get_height()/3))
+#top Right
+myGrid.append(pygame.Rect(2*screen.get_width()/3,0,screen.get_width()/3,screen.get_height()/3))
+#middle Left
+myGrid.append(pygame.Rect(0,screen.get_height()/3,screen.get_width()/3,screen.get_height()/3))
+#Middle Middle
+myGrid.append(pygame.Rect(screen.get_width()/3,screen.get_height()/3,screen.get_width()/3,screen.get_height()/3))
+#Middle Right
+myGrid.append(pygame.Rect(2*screen.get_width()/3,screen.get_height()/3,screen.get_width()/3,screen.get_height()/3))
+#Low Left
+myGrid.append(pygame.Rect(0,2*screen.get_height()/3,screen.get_width()/3,screen.get_height()/3))
+#Low Middle
+myGrid.append(pygame.Rect(screen.get_width()/3,2*screen.get_height()/3,screen.get_width()/3,screen.get_height()/3))
+#Low Right
+myGrid.append(pygame.Rect(2*screen.get_width()/3,2*screen.get_height()/3,screen.get_width()/3,screen.get_height()/3))
+
 
 async def main():
-    pygame.init()
-    screen = pygame.display.set_mode((800,600))
-    clock = pygame.time.Clock()
     isRunning = True
-    dt = 0
-    player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
     while isRunning:
         #handle events
         for event in pygame.event.get():
@@ -17,19 +46,35 @@ async def main():
                 isRunning = False
         #filling screen
         screen.fill("blue")
-        pygame.draw.circle(screen, "red", player_pos, 40)
+        drawGrid()
+        
+        mouse_pos = pygame.mouse.get_pos(); 
+        middleX = screen.get_width()-screen.get_width()/3
+        middleY = screen.get_height()-screen.get_height()/3
+        if mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]<screen.get_height()/3:
+            pygame.draw.rect(screen,(0,0,100),myGrid[0])
+        elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]< screen.get_height()/3:
+            pygame.draw.rect(screen,(0,0,100),myGrid[1])
+        elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]<screen.get_height()/3:
+             pygame.draw.rect(screen,(0,0,100),myGrid[2])
+        elif mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]>screen.get_height()/3 and mouse_pos[1]<2*screen.get_height()/3:
+             pygame.draw.rect(screen,(0,0,100),myGrid[3])
+        elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]>screen.get_height()/3 and mouse_pos[1]<2*screen.get_height()/3:
+            pygame.draw.rect(screen,(0,0,100),myGrid[4])
+        elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]<2*screen.get_height()/3 and mouse_pos[1]>screen.get_height()/3:
+            pygame.draw.rect(screen,(0,0,100),myGrid[5])
+        elif mouse_pos[0]<screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
+            pygame.draw.rect(screen,(0,0,100),myGrid[6])
+        elif mouse_pos[0]>screen.get_width()/3 and mouse_pos[0]<2*screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
+            pygame.draw.rect(screen,(0,0,100),myGrid[7])
+        elif mouse_pos[0]>2*screen.get_width()/3 and mouse_pos[1]>2*screen.get_height()/3:
+            pygame.draw.rect(screen,(0,0,100),myGrid[8])
+
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             isRunning = False
-        if keys[pygame.K_w]:
-            player_pos.y -= 300 * dt
-        if keys[pygame.K_s]:
-            player_pos.y += 300 * dt
-        if keys[pygame.K_a]:
-            player_pos.x -= 300 * dt
-        if keys[pygame.K_d]:
-            player_pos.x += 300 * dt
+        
         #show work on screen
         pygame.display.flip()
 
@@ -37,10 +82,6 @@ async def main():
         dt = clock.tick(60)/1000
         await asyncio.sleep(0)  # Very important, and keep it 0
 
-        # if not COUNT_DOWN:
-        #     return
-
-        # COUNT_DOWN = COUNT_DOWN - 1
     pygame.quit()
 
 asyncio.run(main())
